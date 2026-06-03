@@ -199,11 +199,11 @@
     padding-top: 2mm;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 8mm;
-    flex: 1;
   }
 
-  .r-breakdown-left { flex: 1; display: flex; flex-direction: column; }
+  .r-breakdown-left { flex: 1; }
 
   .r-table { width: 100%; font-size: 9pt; line-height: 2.0; }
   .r-table td { padding: 0; color: #222; }
@@ -681,16 +681,31 @@ function saveAndPreview() {
   switchTab('preview');
 }
 
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzkgqrVGF2iO9BRiBNXkfDT5bZKLV70rDAcoF52NH8DoGa1Zl8E7Sq0Yj-YDVLxnqdb/exec';
+
 function saveToHistory() {
   if (!currentData.id) { showToast('入力フォームで内容を確認してください'); return; }
   const history = getHistory();
-  if (!history.some(h => h.id === currentData.id)) {
-    history.unshift(currentData);
-    localStorage.setItem('receipt_history', JSON.stringify(history));
-    showToast('✅ 発行履歴に保存しました');
-  } else {
+  if (history.some(h => h.id === currentData.id)) {
     showToast('この領収書はすでに保存されています');
+    return;
   }
+  // LocalStorageに保存
+  history.unshift(currentData);
+  localStorage.setItem('receipt_history', JSON.stringify(history));
+  showToast('✅ 保存しました。スプレッドシートに送信中…');
+
+  // Googleスプレッドシートにも送信
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(currentData)
+  }).then(() => {
+    showToast('✅ スプレッドシートにも記録しました');
+  }).catch(() => {
+    showToast('⚠ ローカル保存済み。スプレッドシート送信に失敗しました');
+  });
 }
 
 function getHistory() {
