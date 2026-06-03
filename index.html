@@ -139,15 +139,15 @@
 
   .r-company {
     text-align: right;
-    font-size: 7.5pt;
-    line-height: 1.75;
-    color: #333;
+    font-size: 9pt;
+    line-height: 1.85;
+    color: #222;
   }
-  .r-company .r-company-name { font-size: 10pt; font-weight: bold; margin-bottom: 0.5mm; }
-  .r-company .r-invoice { font-size: 7pt; color: #777; margin-top: 1mm; border-top: 0.5px solid #ddd; padding-top: 1mm; }
+  .r-company .r-company-name { font-size: 12pt; font-weight: bold; margin-bottom: 1mm; }
+  .r-company .r-invoice { font-size: 8pt; color: #666; margin-top: 1.5mm; border-top: 0.5px solid #ddd; padding-top: 1mm; }
 
   /* 宛名エリア */
-  .r-meta { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3mm; }
+  .r-meta { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5mm; }
 
   .r-recipient-name {
     font-size: 18pt;
@@ -158,7 +158,7 @@
     letter-spacing: 0.05em;
   }
 
-  .r-nos { font-size: 8pt; color: #444; line-height: 1.9; }
+  .r-nos { font-size: 9.5pt; color: #333; line-height: 1.9; }
 
   /* 金額欄 */
   .r-amount-wrap {
@@ -181,8 +181,8 @@
       105deg,
       transparent,
       transparent 6px,
-      rgba(0,0,0,0.025) 6px,
-      rgba(0,0,0,0.025) 7px
+      rgba(0,0,0,0.03) 6px,
+      rgba(0,0,0,0.03) 7.5px
     );
     pointer-events: none;
   }
@@ -190,8 +190,8 @@
   .r-amount-value { font-size: 24pt; letter-spacing: 0.04em; font-weight: bold; position: relative; }
   .r-amount-tax { font-size: 9pt; color: #555; position: relative; }
 
-  .r-tadashi { font-size: 9pt; color: #222; margin-bottom: 1mm; }
-  .r-confirmed { font-size: 8pt; color: #555; margin-bottom: 2mm; }
+  .r-tadashi { font-size: 10pt; color: #222; margin-bottom: 1mm; }
+  .r-confirmed { font-size: 9pt; color: #444; margin-bottom: 2mm; }
 
   /* 内訳エリア */
   .r-breakdown {
@@ -205,17 +205,17 @@
 
   .r-breakdown-left { flex: 1; display: flex; flex-direction: column; }
 
-  .r-table { width: 100%; font-size: 8pt; line-height: 1.95; }
-  .r-table td { padding: 0; color: #333; }
+  .r-table { width: 100%; font-size: 9pt; line-height: 2.0; }
+  .r-table td { padding: 0; color: #222; }
   .r-table td:last-child { text-align: right; }
-  .r-table .r-sub-label { color: #999; font-size: 7.5pt; }
+  .r-table .r-sub-label { color: #888; font-size: 8.5pt; }
 
   /* 印紙ボックス */
   .r-stamp-box {
-    width: 22mm; height: 22mm; align-self: flex-start;
+    width: 26mm; height: 26mm; align-self: flex-start;
     border: 1px solid #bbb; border-radius: 2px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-size: 7.5pt; color: #aaa; letter-spacing: 0.05em; text-align: center;
+    font-size: 8pt; color: #bbb; letter-spacing: 0.05em; text-align: center;
     flex-shrink: 0;
   }
   .r-stamp-box.hidden { visibility: hidden; }
@@ -432,7 +432,7 @@
           <div>
             <div class="r-recipient-name" id="p-recipient">　　　　　　　　　　　様</div>
             <div class="r-nos">
-              <span id="p-no-line"></span>　<span id="p-order-date-line"></span>　<span id="p-issue-date-line"></span>
+              <span id="p-no-line"></span>　<span id="p-issue-date-line"></span>
             </div>
           </div>
         </div>
