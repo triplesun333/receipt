@@ -220,6 +220,16 @@
   }
   .r-stamp-box.hidden { visibility: hidden; }
 
+  .field-error {
+    display: none;
+    color: #c0392b;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: bold;
+  }
+  .field-error.show { display: block; }
+  input.error, select.error { border-color: #c0392b; background: #fff8f8; }
+
   /* 通知 */
   .toast {
     position: fixed; bottom: 28px; right: 28px;
@@ -298,6 +308,7 @@
         <div class="form-group">
           <label>宛名（相手先）<span class="required">*</span></label>
           <input type="text" id="f-recipient" placeholder="例：杉山">
+          <span class="field-error" id="err-recipient">宛名を入力してください</span>
         </div>
         <div class="form-group">
           <label>敬称</label>
@@ -325,6 +336,7 @@
         <div class="form-group">
           <label>発行日 <span class="required">*</span></label>
           <input type="date" id="f-issue-date">
+          <span class="field-error" id="err-issue-date">発行日を入力してください</span>
         </div>
       </div>
     </div>
@@ -353,6 +365,7 @@
         <div class="label">合計金額（税込）</div>
         <div class="amount" id="total-display">¥ 0</div>
       </div>
+      <span class="field-error" id="err-amount" style="margin-top:8px;">8%または10%の金額を入力してください</span>
     </div>
 
     <div class="form-card">
@@ -553,6 +566,15 @@ window.addEventListener('DOMContentLoaded', () => {
   // 印紙の手動変更でもアラート更新
   document.getElementById('f-stamp').addEventListener('change', updateStampAlert);
 
+  document.getElementById('f-recipient').addEventListener('input', function() {
+    this.classList.remove('error');
+    document.getElementById('err-recipient').classList.remove('show');
+  });
+  document.getElementById('f-issue-date').addEventListener('change', function() {
+    this.classList.remove('error');
+    document.getElementById('err-issue-date').classList.remove('show');
+  });
+
   loadHistory();
 });
 
@@ -572,6 +594,13 @@ function calcTotal() {
   const coupon= parseFloat(document.getElementById('f-coupon').value)|| 0;
   const total = Math.max(0, amt8 + amt10 - point - coupon);
   document.getElementById('total-display').textContent = '¥ ' + total.toLocaleString();
+
+  // 金額エラーをリセット
+  if (total > 0) {
+    document.getElementById('err-amount').classList.remove('show');
+    document.getElementById('f-amt8').classList.remove('error');
+    document.getElementById('f-amt10').classList.remove('error');
+  }
 
   // 50,000円以上→印紙あり、未満→なし（自動）
   const stampSel = document.getElementById('f-stamp');
@@ -672,10 +701,45 @@ function updatePreview(data) {
   }
 }
 
+function clearErrors() {
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
+  document.querySelectorAll('input.error, select.error').forEach(el => el.classList.remove('error'));
+}
+
+function showFieldError(fieldId, errId) {
+  const field = document.getElementById(fieldId);
+  const err   = document.getElementById(errId);
+  if (field) field.classList.add('error');
+  if (err)   err.classList.add('show');
+}
+
 function saveAndPreview() {
+  clearErrors();
   const data = collectFormData();
-  if (!data.recipient) { showToast('宛名を入力してください'); return; }
-  if (data.total <= 0)  { showToast('金額を入力してください'); return; }
+  let hasError = false;
+
+  if (!data.recipient) {
+    showFieldError('f-recipient', 'err-recipient');
+    hasError = true;
+  }
+  if (!data.issueDate) {
+    showFieldError('f-issue-date', 'err-issue-date');
+    hasError = true;
+  }
+  if (data.total <= 0) {
+    document.getElementById('err-amount').classList.add('show');
+    document.getElementById('f-amt8').classList.add('error');
+    document.getElementById('f-amt10').classList.add('error');
+    hasError = true;
+  }
+
+  if (hasError) {
+    // 最初のエラー項目までスクロール
+    const first = document.querySelector('.field-error.show');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
   currentData = data;
   updatePreview(data);
   switchTab('preview');
