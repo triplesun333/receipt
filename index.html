@@ -661,11 +661,8 @@ function updatePreview(data) {
     (data.recipient || '　　　　　') + '　' + data.honorific;
 
   const noLine    = data.no        ? 'No. ' + data.no : '';
-  const orderLine = data.orderDate ? '注文日　' + fmtDate(data.orderDate) : '';
   const issueLine = data.issueDate ? '発行日　' + fmtDate(data.issueDate) : '';
-  // No・注文日・発行日を横並びに（空なら非表示）
-  document.getElementById('p-no-line').textContent        = noLine;
-  document.getElementById('p-order-date-line').textContent = orderLine;
+  document.getElementById('p-no-line').textContent         = noLine;
   document.getElementById('p-issue-date-line').textContent = issueLine;
 
   document.getElementById('p-amount').textContent = '¥' + data.total.toLocaleString();
