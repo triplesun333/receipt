@@ -191,9 +191,23 @@
 
   .r-title { font-size: 20pt; letter-spacing: 0.55em; color: #111; border-bottom: 2px solid #111; padding-bottom: 1mm; padding-right: 2mm; }
 
-  .r-company { text-align: right; font-size: 8.5pt; line-height: 1.7; color: #222; }
-  .r-company .r-company-name { font-size: 11pt; font-weight: bold; margin-bottom: 0.5mm; }
-  .r-company .r-invoice { font-size: 7.5pt; color: #666; margin-top: 1mm; border-top: 0.5px solid #ddd; padding-top: 0.5mm; }
+  .r-company {
+    text-align: left;
+    font-size: 9.5pt;
+    line-height: 1.8;
+    color: #222;
+    display: flex;
+    gap: 4mm;
+    align-items: flex-start;
+  }
+  .r-company-text { flex: 1; }
+  .r-company .r-company-name { font-size: 12pt; font-weight: bold; margin-bottom: 0.5mm; }
+  .r-company .r-invoice { font-size: 8pt; color: #666; margin-top: 1mm; border-top: 0.5px solid #ddd; padding-top: 0.5mm; }
+  .r-kakuin-box {
+    width: 20mm; height: 20mm; flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 1mm;
+  }
 
   .r-meta { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5mm; }
 
@@ -418,12 +432,15 @@
           <div class="r-top">
             <div class="r-title">領　収　書</div>
             <div class="r-company">
-              <div class="r-company-name">株式会社トリプルサン</div>
-              〒160-0003<br>
-              東京都新宿区四谷本塩町<br>
-              15-12 カーサ四谷羽毛田ビル2F<br>
-              TEL：03-6825-7370　FAX：03-6821-7723
-              <div class="r-invoice">登録番号　T5010401036967</div>
+              <div class="r-company-text">
+                <div class="r-company-name">株式会社トリプルサン</div>
+                〒160-0003<br>
+                東京都新宿区四谷本塩町<br>
+                15-12 カーサ四谷羽毛田ビル2F<br>
+                TEL：03-6825-7370　FAX：03-6821-7723
+                <div class="r-invoice">登録番号　T5010401036967</div>
+              </div>
+              <div class="r-kakuin-box">角印</div>
             </div>
           </div>
 
