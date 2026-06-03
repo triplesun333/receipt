@@ -223,12 +223,17 @@
   .r-tadashi { font-size: 9.5pt; color: #222; margin-bottom: 0.5mm; }
   .r-confirmed { font-size: 8.5pt; color: #444; margin-bottom: 1.5mm; }
 
-  .r-breakdown { border-top: 1px solid #ddd; padding-top: 1.5mm; display: flex; justify-content: space-between; align-items: flex-start; gap: 8mm; }
+  .r-breakdown { border-top: 1px solid #ddd; padding-top: 1.5mm; display: flex; justify-content: space-between; align-items: flex-start; gap: 4mm; }
   .r-breakdown-left { flex: 1; }
-  .r-table { width: 100%; font-size: 9pt; line-height: 2.0; }
-  .r-table td { padding: 0; color: #222; }
-  .r-table td:last-child { text-align: right; }
-  .r-table .r-sub-label { color: #888; font-size: 8.5pt; }
+  .r-table { width: 100%; font-size: 8.5pt; line-height: 1.75; }
+  .r-table td { padding: 0 2mm 0 0; color: #222; }
+  .r-table td:last-child { text-align: right; padding-right: 0; }
+  .r-table .r-sub-label { color: #888; font-size: 8pt; }
+  /* 内訳を2列に */
+  .r-inner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 6mm; }
+  .r-inner-col table { width: 100%; font-size: 8.5pt; line-height: 1.75; }
+  .r-inner-col table td { padding: 0; color: #222; }
+  .r-inner-col table td:last-child { text-align: right; }
 
   .r-stamp-box { width: 26mm; height: 26mm; align-self: flex-start; border: 1px solid #bbb; border-radius: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 8pt; color: #bbb; letter-spacing: 0.05em; text-align: center; flex-shrink: 0; }
   .r-stamp-box.hidden { visibility: hidden; }
@@ -440,7 +445,6 @@
                 TEL：03-6825-7370　FAX：03-6821-7723
                 <div class="r-invoice">登録番号　T5010401036967</div>
               </div>
-              <div class="r-kakuin-box">角印</div>
             </div>
           </div>
 
@@ -464,16 +468,25 @@
 
           <div class="r-breakdown">
             <div class="r-breakdown-left">
-              <table class="r-table">
+              <table class="r-table" style="margin-bottom:1mm;">
                 <tr><td class="r-sub-label">支払方法</td><td id="p-payment"></td></tr>
-                <tr><td colspan="2" style="height:2px;"></td></tr>
-                <tr id="p-row-8tax"><td>8% 税抜金額</td><td id="p-8-pretax"></td></tr>
-                <tr id="p-row-8vat"><td>8% 消費税額</td><td id="p-8-vat"></td></tr>
-                <tr id="p-row-10tax"><td>10% 税抜金額</td><td id="p-10-pretax"></td></tr>
-                <tr id="p-row-10vat"><td>10% 消費税額</td><td id="p-10-vat"></td></tr>
-                <tr id="p-row-point"><td>ポイント利用</td><td id="p-point"></td></tr>
-                <tr id="p-row-coupon"><td>クーポン利用</td><td id="p-coupon"></td></tr>
               </table>
+              <div class="r-inner-grid">
+                <div class="r-inner-col">
+                  <table>
+                    <tr id="p-row-8tax"><td>8% 税抜金額</td><td id="p-8-pretax"></td></tr>
+                    <tr id="p-row-8vat"><td>8% 消費税額</td><td id="p-8-vat"></td></tr>
+                    <tr id="p-row-10tax"><td>10% 税抜金額</td><td id="p-10-pretax"></td></tr>
+                    <tr id="p-row-10vat"><td>10% 消費税額</td><td id="p-10-vat"></td></tr>
+                  </table>
+                </div>
+                <div class="r-inner-col">
+                  <table>
+                    <tr id="p-row-point"><td>ポイント利用</td><td id="p-point"></td></tr>
+                    <tr id="p-row-coupon"><td>クーポン利用</td><td id="p-coupon"></td></tr>
+                  </table>
+                </div>
+              </div>
             </div>
             <div class="r-stamp-box" id="p-stamp-box">印紙</div>
           </div>
